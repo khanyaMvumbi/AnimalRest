@@ -7,6 +7,7 @@ package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Employee implements Serializable{
-
+private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long empID;
@@ -30,17 +31,17 @@ public class Employee implements Serializable{
     private String empNumber;
     @OneToMany
     @JoinColumn(name = "empID")
-    private FeedAnimal feed;
+    private List<FeedAnimal> feed;
 
     @OneToMany
     @JoinColumn(name = "empID")
     private List<TransportAnimal> transportAnimal;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "empID")
     private List<ServiceHabitat> serviceHabitat;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "empID")
     private List<ServiceAnimal> serviceAnimal;
 
@@ -48,6 +49,10 @@ public class Employee implements Serializable{
     @JoinColumn(name = "empID")
     private List<AdoptAnimal> adopt;
 
+    private Employee()
+    {
+        
+    }
     private Employee(Builder build) {
         this.empID = build.empID;
         this.empName = build.empName;
@@ -66,7 +71,7 @@ public class Employee implements Serializable{
         private String empName;
         private String empSurname;
        
-        private FeedAnimal feed;
+        private List<FeedAnimal> feed;
         private List<TransportAnimal> transportAnimal;
         private List<AdoptAnimal> adopt;
         private List<ServiceHabitat> serviceHabitat;
@@ -76,7 +81,7 @@ public class Employee implements Serializable{
             this.empNumber = empNumber;
         }
         
-        public Builder Id(Long empID) {
+        public Builder EmpId(Long empID) {
             this.empID = empID;
             return this;
         }
@@ -91,8 +96,8 @@ public class Employee implements Serializable{
             return this;
         }
 
-        public Builder FeedAnimal(FeedAnimal feedAnimal) {
-            this.feed = feedAnimal;
+        public Builder FeedAnimal(List<FeedAnimal> feed) {
+            this.feed = feed;
             return this;
         }
 
@@ -163,7 +168,7 @@ public class Employee implements Serializable{
         return serviceAnimal;
     }
 
-    public FeedAnimal getFeedAnimal() {
+    public List<FeedAnimal> getFeedAnimal() {
         return feed;
     }
 

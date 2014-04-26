@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 
-package com.cput.wonder.test.repository;
+package com.cput.my.wonder.repository;
+
+import com.cput.my.wonder.domain.Habitat;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Khanya
  */
-public class TransportAnimalRepository {
+public interface HabitatRepository extends JpaRepository<Habitat, Long> {
     
 }

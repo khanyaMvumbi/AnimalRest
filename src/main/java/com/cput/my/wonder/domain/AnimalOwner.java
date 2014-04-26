@@ -32,7 +32,7 @@ public class AnimalOwner implements Serializable{
     private int age;
     
     @OneToMany
-    @JoinColumn(name = "animalID")     
+    @JoinColumn(name = "OwnerID")     
     private List<Animal> animal;
     
     private AnimalOwner()

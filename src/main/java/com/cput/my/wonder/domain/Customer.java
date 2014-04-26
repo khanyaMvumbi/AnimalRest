@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Customer implements Serializable{
-
+private static final long serialVersionUID = 1L;
 
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +35,7 @@ private String custNumber;
 private String custName;
 private String custSurname;
 
-@OneToOne
+@OneToOne 
 @JoinColumn(name = "custID")
 private AdoptAnimal adopt;
 

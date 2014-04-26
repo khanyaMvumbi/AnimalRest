@@ -12,7 +12,6 @@ import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.Customer;
 import com.cput.my.wonder.repository.AnimalRepository;
 import com.cput.my.wonder.repository.CustomerRepository;
-import static com.cput.wonder.test.repository.AnimalRepositoryTest.ctx;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -30,7 +29,7 @@ import org.testng.annotations.Test;
  */
 public class CustomerRepositoryTest {
     
-    public static ApplicationContext ctx;
+    private static ApplicationContext ctx;
     private Long id;
     private CustomerRepository repo;
     
@@ -45,14 +44,14 @@ public class CustomerRepositoryTest {
     
      repo = ctx.getBean(CustomerRepository.class);
      
-     List<Animal> animals = new ArrayList<>();
-     Animal ani = new Animal.Builder(12).build();
-     animals.add(ani);
-     ani = new Animal.Builder(17).build();
-     animals.add(ani);
-     
-     AdoptAnimal adopt = new AdoptAnimal.Builder(animals).build();
-     Customer cust = new Customer.Builder("1221").CustName("Khanya").CustSurname("Mvumbi").Adopt(adopt).build();
+//     List<Animal> animals = new ArrayList<>();
+//     Animal ani = new Animal.Builder(12).build();
+//     animals.add(ani);
+//     ani = new Animal.Builder(17).build();
+//     animals.add(ani);
+//     
+//     AdoptAnimal adopt = new AdoptAnimal.Builder(animals).build();
+     Customer cust = new Customer.Builder("1221").CustName("Khanya").CustSurname("Mvumbi").build();
      
      repo.save(cust);
      id = cust.getID();
@@ -69,7 +68,7 @@ public class CustomerRepositoryTest {
                 
     }
     
-    @Test 
+    @Test (dependsOnMethods = "readCustomer")
     public void updateCustomer()
     {
         repo = ctx.getBean(CustomerRepository.class);
@@ -81,14 +80,14 @@ public class CustomerRepositoryTest {
         Customer updatedCustomer = repo.findOne(id);
         Assert.assertEquals(updatedCustomer.getCustName(), "Anele");
     }
-    @Test
+    @Test   (dependsOnMethods = "updateCustomer")
     public void deleteCustomer()
     {
         repo = ctx.getBean(CustomerRepository.class);
         Customer customer = repo.findOne(id);
         repo.delete(customer);
-        
-        Assert.assertNull(customer);
+        Customer deletedCustomer = repo.findOne(id);
+        Assert.assertNull(deletedCustomer);
     }
 
     

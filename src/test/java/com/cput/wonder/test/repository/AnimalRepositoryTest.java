@@ -10,8 +10,8 @@ import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.AnimalStatus;
 import com.cput.my.wonder.domain.Habitat;
 import com.cput.my.wonder.repository.AnimalRepository;
-import java.sql.Date;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -25,9 +25,10 @@ import org.testng.annotations.Test;
  *
  * @author Khanya
  */
+
 public class AnimalRepositoryTest {
 
-    public static ApplicationContext ctx;
+    private static ApplicationContext ctx;
     private Long id;
     private AnimalRepository repo;
 
@@ -36,24 +37,25 @@ public class AnimalRepositoryTest {
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
-    //
+//    //
 //    @Test
 //     public void hello() {}
     
     @Test
     public void createAnimal() {
-        
         repo = ctx.getBean(AnimalRepository.class);
-        Habitat habitat = new Habitat.Builder("104").block("D").build();
-        AnimalStatus status = new AnimalStatus.Builder("Good stuff").date("12-04-14").build();
-        Animal animal = new Animal.Builder(12).Name("Nonjana").Color("black").habitat(habitat).Species("Dog").status(status).adopted(false).build();
+//        Habitat habitat = new Habitat.Builder(104).block("D").build();
+//        AnimalStatus statusObj = new AnimalStatus.Builder("Good stuff").date("12-04-14").build();
+//        List<AnimalStatus> status = new ArrayList<>();
+//        status.add(statusObj);
+        Animal animal = new Animal.Builder(12).Name("Nonjana").Color("black").Species("Dog").adopted(false).build();
         repo.save(animal);
         id = animal.getId();
         Assert.assertNotNull(animal);
         
     }
     
-    @Test   (dependsOnMethods = "createPerson") 
+    @Test   (dependsOnMethods = "createAnimal") 
     public void readAnimal()
     {
         repo = ctx.getBean(AnimalRepository.class);
@@ -61,7 +63,7 @@ public class AnimalRepositoryTest {
         Assert.assertEquals(animal.getName(), "Nonjana");
     }
     
-    @Test(dependsOnMethods = "updateAnimal")
+    @Test(dependsOnMethods = "readAnimal")
     public void updateAnimal()
     {
         repo = ctx.getBean(AnimalRepository.class);
@@ -73,7 +75,7 @@ public class AnimalRepositoryTest {
         Assert.assertEquals(updatedAnimal.getName(), "Darling");    
         
     }    
-    @Test(dependsOnMethods = "deleteAnimal")
+    @Test(dependsOnMethods = "updateAnimal")
     public void deleteAnimal()
     {
         repo = ctx.getBean(AnimalRepository.class);

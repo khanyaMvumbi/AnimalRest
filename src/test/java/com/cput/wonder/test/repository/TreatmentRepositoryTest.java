@@ -8,13 +8,10 @@ package com.cput.wonder.test.repository;
 
 import com.cput.my.wonder.app.config.ConnectionConfig;
 import com.cput.my.wonder.domain.Treatment;
-import com.cput.my.wonder.repository.EmployeeRepository;
 import com.cput.my.wonder.repository.TreatmentRepository;
-import static com.cput.wonder.test.repository.EmployeeRepositoryTest.ctx;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
-import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -27,7 +24,7 @@ import org.testng.annotations.Test;
  */
 public class TreatmentRepositoryTest {
     
-    public static ApplicationContext ctx;
+    private static ApplicationContext ctx;
     private Long id;
     private TreatmentRepository repo;
     
@@ -47,7 +44,7 @@ public class TreatmentRepositoryTest {
         Assert.assertEquals(treatment.getTreatmentNO(), "4444");
     }   
     
-    @Test
+    @Test  (dependsOnMethods = "createTreatment")
     public void readTreatment()
     {
         repo = ctx.getBean(TreatmentRepository.class);
@@ -57,7 +54,7 @@ public class TreatmentRepositoryTest {
                
     }
     
-    @Test
+    @Test  (dependsOnMethods = "readTreatment")
     public void updateTreatment()
     {
         repo = ctx.getBean(TreatmentRepository.class);
@@ -68,19 +65,17 @@ public class TreatmentRepositoryTest {
         
         Treatment updatedTreatment = repo.findOne(id);
         Assert.assertEquals(updatedTreatment.getExpiryDate() , "12/11/2014");
-        
     }
     
-    @Test
+    @Test  (dependsOnMethods = "updateTreatment")
     public void deleteTreatment()
     {
         repo = ctx.getBean(TreatmentRepository.class);
         Treatment treatment = repo.findOne(id);
         
-        repo.delete(treatment);
-        
-        Assert.assertNull(treatment);
-        
+        repo.delete(treatment);   
+        Treatment deletedTreatment = repo.findOne(id);
+        Assert.assertNull(deletedTreatment);        
     } 
     
 

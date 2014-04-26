@@ -6,11 +6,16 @@
 package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,7 +23,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Animal implements Serializable {
-
+private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -29,12 +34,14 @@ public class Animal implements Serializable {
     private boolean adopted;
 
 //    One to One Relationship
-    @Embedded
+    @OneToOne
+    @JoinColumn(name = "animalID")
     private Habitat habitat;
 
     // One to one 
-    @Embedded
-    private AnimalStatus status;
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "animalID")
+    private List<AnimalStatus> status;
      
     private Animal()
     {
@@ -42,6 +49,7 @@ public class Animal implements Serializable {
     }
     public static class Builder {
 
+        
         private String name;
         private int age;
         private Long id;
@@ -49,8 +57,8 @@ public class Animal implements Serializable {
         private String color;
         private boolean adopted;
         private Habitat habitat;
-        private AnimalStatus status;
-
+        private List<AnimalStatus> status;
+        
         public Builder(int age) {
             this.age = age;
         }
@@ -78,7 +86,7 @@ public class Animal implements Serializable {
             return this;
         }
 
-        public Builder status(AnimalStatus status) {
+        public Builder status(List<AnimalStatus> status) {
             this.status = status;
             return this;
         }
@@ -133,7 +141,7 @@ public class Animal implements Serializable {
         return habitat;
     }
 
-    public AnimalStatus getStatus() {
+    public List<AnimalStatus> getStatus() {
         return status;
     }
 

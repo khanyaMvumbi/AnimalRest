@@ -11,6 +11,8 @@ import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.AnimalOwner;
 import com.cput.my.wonder.domain.AnimalStatus;
 import com.cput.my.wonder.repository.AnimalOwnerRepository;
+import com.cput.my.wonder.repository.AnimalRepository;
+import com.cput.my.wonder.repository.AnimalStatusRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -28,10 +30,11 @@ import org.testng.annotations.Test;
  */
 public class AnimalOwnerRepositoryTest {
     
-    public static ApplicationContext ctx;
+    private static ApplicationContext ctx;
     private Long id;
     private AnimalOwnerRepository repo;
-    
+    private AnimalRepository animalRepo;
+    private AnimalStatusRepository statusRepo;
     public AnimalOwnerRepositoryTest() {
     }
 
@@ -41,15 +44,25 @@ public class AnimalOwnerRepositoryTest {
     @Test
     public void createAnimalOwner() {
      
+//     statusRepo = ctx.getBean(AnimalStatusRepository.class);
+//     
+//     List<Animal>animals = new ArrayList<>();
+//     AnimalStatus statusObj = new AnimalStatus.Builder("Sick").date("12/04/2014").isActive(true).build();
+//     
+//     List<AnimalStatus> status = new ArrayList<>();
+//     status.add(statusObj);
+//     statusRepo.save(statusObj);
+//     
+//     Animal animal = new Animal.Builder(4).Name("katalina").Species("Cat").adopted(false).Color("black").status(status).build();
+//     animals.add(animal);     
+//     animalRepo = ctx.getBean(AnimalRepository.class);
+//    
+//     
+//     animal = new Animal.Builder(4).Name("Faku").Species("Dog").adopted(false).Color("black").status(status).build();
+//     animals.add(animal);
+//      animalRepo.save(animal);
      repo = ctx.getBean(AnimalOwnerRepository.class);
-     
-     List<Animal>animals = new ArrayList<>();
-     AnimalStatus status = new AnimalStatus.Builder("Sick").date("12/04/2014").isActive(true).build();
-     Animal animal = new Animal.Builder(4).Name("katalina").Species("Cat").adopted(false).Color("black").status(status).build();
-     animals.add(animal);
-     animal = new Animal.Builder(4).Name("Faku").Species("Dog").adopted(false).Color("black").status(status).build();
-     animals.add(animal);
-     AnimalOwner owner = new AnimalOwner.Builder("Jesus").Age(43).Surname("Christ").animal(animals).build();
+     AnimalOwner owner = new AnimalOwner.Builder("Jesus").Age(43).Surname("Christ").build();
      
      repo.save(owner);
      id = owner.getOwnerID();
@@ -58,7 +71,7 @@ public class AnimalOwnerRepositoryTest {
            
     }
     
-    @Test
+    @Test  (dependsOnMethods = "createAnimalOwner")
     public void readAnimalOwner()
     {
         repo = ctx.getBean(AnimalOwnerRepository.class);
@@ -68,7 +81,7 @@ public class AnimalOwnerRepositoryTest {
         
         
     }    
-    @Test
+    @Test(dependsOnMethods = "readAnimalOwner")
     public void updateAnimalOwner()
     {
         repo = ctx.getBean(AnimalOwnerRepository.class);
@@ -82,14 +95,15 @@ public class AnimalOwnerRepositoryTest {
         Assert.assertEquals(updatedOwner.getSurname(), "Malema");
     }
     
-    @Test
+    @Test   (dependsOnMethods = "updateAnimalOwner")
     public void deleteAnimalOwner()
     {
         repo = ctx.getBean(AnimalOwnerRepository.class);
         AnimalOwner owner = repo.findOne(id);
         
-        repo.delete(owner);        
-        Assert.assertNull(owner);
+        repo.delete(owner);  
+        AnimalOwner deleteOwner = repo.findOne(id);
+        Assert.assertNull(deleteOwner);
     }
 
     @BeforeClass

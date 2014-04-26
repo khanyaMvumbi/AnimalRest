@@ -33,9 +33,9 @@ public class ConnectionConfig {
     public DataSource dataSource() {
         BasicDataSource ds = new org.apache.commons.dbcp.BasicDataSource();
         ds.setDriverClassName("org.apache.derby.jdbc.ClientDriver");
-        ds.setUrl("jdbc:derby://localhost:1527/samples");
-        ds.setUsername("app");
-        ds.setPassword("app");
+        ds.setUrl("jdbc:derby://localhost:1527/AnimalCare");
+        ds.setUsername("animal");
+        ds.setPassword("animal");
         return ds;
     }
 

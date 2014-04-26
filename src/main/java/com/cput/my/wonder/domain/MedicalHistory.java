@@ -25,6 +25,10 @@ public class MedicalHistory implements Serializable{
     private Long medID;
     private String description;
     private String history;
+    private String date;
+
+    private MedicalHistory() {
+    }
 
     private MedicalHistory(Builder build) {
         this.medID = build.medID;

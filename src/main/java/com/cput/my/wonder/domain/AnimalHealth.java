@@ -8,6 +8,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class AnimalHealth implements Serializable{
-
+  private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long healthID;
@@ -30,15 +31,15 @@ public class AnimalHealth implements Serializable{
     private String condition;
     private String description;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "healthID")
     private List<Animal> animal;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "healthID")
     private List<Treatment> treatment;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "healthID")
     private List<MedicalHistory> history;
 
@@ -68,16 +69,15 @@ public class AnimalHealth implements Serializable{
             this.condition = condition;
         }
 
+        public Builder Treatment(List<Treatment> treatment) {
+            this.treatment = treatment;
+            return this;
+        }
+
         public Builder id(Long value) {
             healthID = value;
             return this;
         }
-
-        public Builder Condition(String condition) {
-            this.condition = condition;
-            return this;
-        }
-
         public Builder Description(String description) {
             this.description = description;
             return this;

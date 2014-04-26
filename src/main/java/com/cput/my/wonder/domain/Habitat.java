@@ -6,18 +6,27 @@
 package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
-import javax.persistence.Embeddable;
+import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Khanya
  */
-@Embeddable
+@Entity
 public class Habitat implements Serializable{
 
+    
     private String block;
     private String unit;
-    private String room;
+    private int room;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     
     private Habitat()
     {        
@@ -31,19 +40,23 @@ public class Habitat implements Serializable{
     
     public static class Builder {
 
+        private Long id;
         private String unit;
-        private String room;
+        private int room;
         private String block;
-
-        public Builder()
+  
+        public Builder(int room)
         {
-            
+            this.room = room;
         }
         
-        public Builder(String string) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        public Builder Id(Long value)
+        {
+            this.id = value;        
+            return this;
         }
-                
+        
+        
         public Builder block(String block ) {
             this.block = block;
             return this;
@@ -59,6 +72,7 @@ public class Habitat implements Serializable{
             block = habitat.getBlock();
             unit = habitat.getUnit();
             room = habitat.getRoom();
+            id = habitat.getId();
             return this;
         }
 
@@ -72,7 +86,7 @@ public class Habitat implements Serializable{
         return unit;
     }
 
-    public String getRoom() {
+    public int getRoom() {
         return room;
     }
 
@@ -80,5 +94,37 @@ public class Habitat implements Serializable{
     public String getBlock() {
         return block;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.block);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Habitat other = (Habitat) obj;
+        if (!Objects.equals(this.block, other.block)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Habitat{" + "block=" + block + '}';
+    }
+
     
 }

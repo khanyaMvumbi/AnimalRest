@@ -7,6 +7,7 @@ package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class TransportAnimal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String location;
 
     @Column(unique = true)
     private String transportNumber;
@@ -33,13 +35,14 @@ public class TransportAnimal implements Serializable {
     @OneToMany
     @JoinColumn(name = "transportID")
     private List<Animal> animals;
-    private String location;
+    
 
     private TransportAnimal(Builder build) {
         date = build.date;
         location = build.location;
         animals = build.animals;
         location = build.transportNumber;
+        id = build.id;
     }
     private TransportAnimal()
     {
@@ -47,15 +50,25 @@ public class TransportAnimal implements Serializable {
     }
     public static class Builder {
 
+        private Long id;
         private String date;
         private String transportNumber;
         private List<Animal> animals;
         private String location;
 
-        public Builder(String transport) {
-            this.transportNumber = transport;
+        public Builder(String transportNO) {
+            this.transportNumber = transportNO;
         }
 
+        public Builder Date(String date) {
+            this.date = date;
+            return this;
+        }
+        public Builder Id(Long id)
+        {
+            this.id = id;
+            return this;
+        }
         public Builder location(String location) {
             this.location = location;
             return this;
@@ -71,7 +84,9 @@ public class TransportAnimal implements Serializable {
             animals = trans.getAnimals();
             transportNumber = trans.getTransportNumber();
             date = trans.getDate();
+            id = trans.getId();
             return this;
+            
         }
 
         public TransportAnimal build() {
@@ -79,6 +94,11 @@ public class TransportAnimal implements Serializable {
         }
     }
 
+    public Long getId()
+    {
+        return id;
+    }
+    
     public String getDate()
     {
         return date;
@@ -95,10 +115,17 @@ public class TransportAnimal implements Serializable {
         return animals;
     }
 
+    
+
+    @Override
+    public String toString() {
+        return "TransportAnimal{" + "id=" + id + ", transportNumber=" + transportNumber + '}';
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + (this.transportNumber != null ? this.transportNumber.hashCode() : 0);
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -111,15 +138,10 @@ public class TransportAnimal implements Serializable {
             return false;
         }
         final TransportAnimal other = (TransportAnimal) obj;
-        if ((this.transportNumber == null) ? (other.transportNumber != null) : !this.transportNumber.equals(other.transportNumber)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "TransportAnimal{" + "id=" + id + ", transportNumber=" + transportNumber + '}';
     }
 
 }

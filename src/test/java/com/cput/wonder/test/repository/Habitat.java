@@ -16,9 +16,9 @@ import org.testng.annotations.BeforeMethod;
  *
  * @author Khanya
  */
-public class Supplier {
+public class Habitat {
     
-    public Supplier() {
+    public Habitat() {
     }
 
     // TODO add test methods here.
@@ -29,8 +29,6 @@ public class Supplier {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        
-        
     }
 
     @AfterClass

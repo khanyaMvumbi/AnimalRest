@@ -87,7 +87,7 @@ public class AnimalRepositoryTest {
         repo.delete(animal);        
         Animal deletedAnimal = repo.findOne(id);        
         Assert.assertNull(deletedAnimal); 
-         //Assert.assertNull(deletedAnimal); 
+         
     }    
     @BeforeClass
     public static void setUpClass() throws Exception {

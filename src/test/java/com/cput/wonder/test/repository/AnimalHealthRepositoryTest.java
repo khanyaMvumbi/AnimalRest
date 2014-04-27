@@ -9,6 +9,7 @@ package com.cput.wonder.test.repository;
 import com.cput.my.wonder.app.config.ConnectionConfig;
 import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.AnimalHealth;
+import com.cput.my.wonder.domain.MedicalHistory;
 import com.cput.my.wonder.repository.AnimalHealthRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +44,15 @@ public class AnimalHealthRepositoryTest {
         Animal ani = new Animal.Builder(33).Name("sunji").Species("elephant").build();
          List<Animal> animal = new ArrayList<>();
          animal.add(ani);
-         AnimalHealth health = new AnimalHealth.Builder("Dog Cancer").animals(animal).Description("If animal doesnt take treatment, this animal will die suddenly").build();
+         MedicalHistory history = new MedicalHistory.Builder().description("dog flu").build();
+         List<MedicalHistory> hist = new ArrayList<>();
+         hist.add(history);
+         AnimalHealth health = new AnimalHealth.Builder("Dog Cancer").history(hist).animals(animal).Description("If animal doesnt take treatment, this animal will die suddenly").build();
          
          repo.save(health);
          id = health.getHealthID();
          Assert.assertEquals(health.getAnimal().get(0).getName(), "sunji");
+         Assert.assertEquals(health.getHistory().get(0).getDescription(), "dog flu");
     
     }
     

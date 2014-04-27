@@ -36,6 +36,7 @@ public class Habitat implements Serializable{
         unit = build.unit;
         block = build.block;
         room = build.room;
+        id = build.id;
     }
     
     public static class Builder {

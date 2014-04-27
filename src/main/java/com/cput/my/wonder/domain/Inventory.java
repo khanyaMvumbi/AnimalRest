@@ -17,7 +17,7 @@ import javax.persistence.Id;
  * @author Khanya
  */
 @Entity
-public class InventoryFood implements Serializable{
+public class Inventory implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,11 +25,11 @@ public class InventoryFood implements Serializable{
     private int quantityStock;
     private String date;
 
-    private InventoryFood()
+    private Inventory()
     {
         
     }
-    private InventoryFood(Builder build)
+    private Inventory(Builder build)
     {
         date = build.date;
         id = build.id;
@@ -57,16 +57,16 @@ public class InventoryFood implements Serializable{
             return this;
         }
         
-        public Builder inventoryFood(InventoryFood inv)
+        public Builder inventoryFood(Inventory inv)
         {
             date = inv.getDate();
             id = inv.getId();
             quantityStock = inv.getQuantityStock();
             return this;
         }        
-        public InventoryFood build()
+        public Inventory build()
         {
-            return new InventoryFood(this);
+            return new Inventory(this);
             
         }
     }
@@ -98,7 +98,7 @@ public class InventoryFood implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final InventoryFood other = (InventoryFood) obj;
+        final Inventory other = (Inventory) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -107,7 +107,7 @@ public class InventoryFood implements Serializable{
 
     @Override
     public String toString() {
-        return "InventoryFood{" + "id=" + id + '}';
+        return "Inventory{" + "id=" + id + '}';
     }
 
 }

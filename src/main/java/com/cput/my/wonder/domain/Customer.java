@@ -8,7 +8,9 @@ package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,9 +37,13 @@ private String custNumber;
 private String custName;
 private String custSurname;
 
-@OneToOne 
+@OneToOne (cascade = CascadeType.ALL)
 @JoinColumn(name = "custID")
 private AdoptAnimal adopt;
+
+@Embedded
+private Address address;
+
 
     public Customer() {
     }
@@ -50,6 +56,8 @@ private Customer(Builder build)
     custName = build.custName;
     custSurname = build.custSurname;
     custNumber = build.custNumber;
+    address = build.address;
+    
 }
 
 
@@ -60,12 +68,16 @@ public static class Builder{
     private String custNumber;
     private String custSurname;    
     private AdoptAnimal adopt;
-
+   private Address address;
     
      public Builder (String custNumber) {
-            this.custName = custNumber;
+            this.custNumber = custNumber;
       }
     
+     public Builder Address (Address addr){
+            this.address = addr;
+            return this;
+      }
       public Builder Id(Long id) {
             this.Id = id;
             return this;
@@ -97,6 +109,7 @@ public static class Builder{
             custNumber = cust.getCustNumber();
             custSurname = cust.getCustSurname();
             Id = cust.getID();
+            address = cust.getAddress();
             return this;
         }
         
@@ -105,6 +118,11 @@ public static class Builder{
             return new Customer(this);
         }
     }
+
+public Address getAddress()
+{
+    return address;
+}
     public Long getID()
     {
        return Id;

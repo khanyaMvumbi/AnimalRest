@@ -9,6 +9,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class EmployeePositions implements Serializable{
     private String jobType;    
     private String objectives;
     
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "positionID")
     private List<Employee> employee;
        

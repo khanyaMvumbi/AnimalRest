@@ -7,6 +7,7 @@ package com.cput.wonder.test.repository;
  */
 import com.cput.my.wonder.app.config.ConnectionConfig;
 import com.cput.my.wonder.domain.Animal;
+import com.cput.my.wonder.domain.AnimalRecord;
 import com.cput.my.wonder.domain.AnimalStatus;
 import com.cput.my.wonder.domain.Habitat;
 import com.cput.my.wonder.repository.AnimalRepository;
@@ -44,11 +45,13 @@ public class AnimalRepositoryTest {
     @Test
     public void createAnimal() {
         repo = ctx.getBean(AnimalRepository.class);
-//        Habitat habitat = new Habitat.Builder(104).block("D").build();
-//        AnimalStatus statusObj = new AnimalStatus.Builder("Good stuff").date("12-04-14").build();
-//        List<AnimalStatus> status = new ArrayList<>();
-//        status.add(statusObj);
-        Animal animal = new Animal.Builder(12).Name("Nonjana").Color("black").Species("Dog").adopted(false).build();
+        Habitat habitat = new Habitat.Builder(104).block("D").build();
+        AnimalStatus statusObj = new AnimalStatus.Builder("Good stuff").date("12-04-14").build();
+        List<AnimalStatus> status = new ArrayList<>();
+        status.add(statusObj);
+        
+        AnimalRecord record = new AnimalRecord.Builder("12/04/2014").dateLeave("12/04/2015").build();
+        Animal animal = new Animal.Builder(12).Name("Nonjana").Color("black").Record(record).status(status).habitat(habitat).Species("Dog").isAdopted(false).build();
         repo.save(animal);
         id = animal.getId();
         Assert.assertNotNull(animal);

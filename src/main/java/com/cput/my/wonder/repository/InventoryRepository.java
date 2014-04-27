@@ -6,7 +6,7 @@
 
 package com.cput.my.wonder.repository;
 
-import com.cput.my.wonder.domain.InventoryFood;
+import com.cput.my.wonder.domain.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 
-public interface InventoryFoodRepository extends JpaRepository<InventoryFood, Long>{
+public interface InventoryRepository extends JpaRepository<Inventory, Long>{
     
 }

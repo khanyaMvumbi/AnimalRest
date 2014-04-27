@@ -44,20 +44,20 @@ public class CustomerRepositoryTest {
     
      repo = ctx.getBean(CustomerRepository.class);
      
-//     List<Animal> animals = new ArrayList<>();
-//     Animal ani = new Animal.Builder(12).build();
-//     animals.add(ani);
-//     ani = new Animal.Builder(17).build();
-//     animals.add(ani);
+     List<Animal> animals = new ArrayList<>();
+     Animal ani = new Animal.Builder(12).build();
+     animals.add(ani);
+     ani = new Animal.Builder(17).build();
+     animals.add(ani);
      
-//     AdoptAnimal adopt = new AdoptAnimal.Builder(animals).build();
-     Customer cust = new Customer.Builder("1221").CustName("Khanya").CustSurname("Mvumbi").build();
+     AdoptAnimal adopt = new AdoptAnimal.Builder(animals).build();
+     Customer cust = new Customer.Builder("12321").CustName("Khanya").CustSurname("Mvumbi").Adopt(adopt).build();
      
      repo.save(cust);
      id = cust.getID();
-     Assert.assertEquals(cust.getCustName(), "Khanya");
-          
-    }
+     Customer newCust = repo.findOne(id);
+     Assert.assertEquals(newCust.getCustName(), "Khanya");
+     }
     
     @Test (dependsOnMethods = "createCustomer")
     public void readCustomer()

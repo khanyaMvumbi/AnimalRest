@@ -9,6 +9,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +30,7 @@ public class ServiceHabitat implements Serializable{
     private Long Id;
     private boolean clean;
         
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "serviceID")
     private List <Habitat> habitat;  
     
@@ -50,6 +51,11 @@ public class ServiceHabitat implements Serializable{
 
         public Builder (boolean clean) {
             this.clean = clean;            
+        }
+        
+        public Builder habitat(List <Habitat> habitat) {
+            this.habitat = habitat; 
+            return this;
         }
 
         public Builder Id(Long Id) {

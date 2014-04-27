@@ -8,6 +8,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,11 +30,11 @@ private static final long serialVersionUID = 1L;
     private String empName;
     private String empSurname;
     private String empNumber;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "empID")
     private List<FeedAnimal> feed;
 
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "empID")
     private List<TransportAnimal> transportAnimal;
 
@@ -48,6 +49,9 @@ private static final long serialVersionUID = 1L;
     @OneToMany
     @JoinColumn(name = "empID")
     private List<AdoptAnimal> adopt;
+    
+    @Embedded
+    private Address address;
 
     private Employee()
     {
@@ -62,6 +66,7 @@ private static final long serialVersionUID = 1L;
         this.serviceAnimal = build.serviceAnimal;
         this.serviceHabitat = build.serviceHabitat;
         this.adopt = build.adopt;
+        this.address = build.address;
     }
 
     public static class Builder {
@@ -70,7 +75,7 @@ private static final long serialVersionUID = 1L;
         private String empNumber;
         private String empName;
         private String empSurname;
-       
+       private Address address;
         private List<FeedAnimal> feed;
         private List<TransportAnimal> transportAnimal;
         private List<AdoptAnimal> adopt;
@@ -79,6 +84,12 @@ private static final long serialVersionUID = 1L;
 
         public Builder(String empNumber) {
             this.empNumber = empNumber;
+        }
+        
+        public Builder Address(Address addr)
+        {
+            this.address = addr;
+            return this;
         }
         
         public Builder EmpId(Long empID) {
@@ -131,6 +142,7 @@ private static final long serialVersionUID = 1L;
             transportAnimal = emp.getTransportAnimal();
             serviceHabitat = emp.getServiceHabitat();
             feed = emp.getFeedAnimal();
+            address = emp.getAddress();
             return this;
         }
 
@@ -139,6 +151,11 @@ private static final long serialVersionUID = 1L;
         }
     }
     
+    
+    public Address getAddress()
+    {
+        return address;
+    }
     public String getEmpNumber()
     {
         return empNumber;

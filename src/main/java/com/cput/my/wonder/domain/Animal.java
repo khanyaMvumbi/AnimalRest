@@ -34,10 +34,12 @@ private static final long serialVersionUID = 1L;
     private boolean adopted;
 
 //    One to One Relationship
-    @OneToOne
+    @OneToOne  (cascade = CascadeType.ALL)
     @JoinColumn(name = "animalID")
     private Habitat habitat;
 
+    @Embedded
+    private AnimalRecord record;
     // One to one 
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "animalID")
@@ -58,10 +60,16 @@ private static final long serialVersionUID = 1L;
         private boolean adopted;
         private Habitat habitat;
         private List<AnimalStatus> status;
+        private AnimalRecord record;
         
         public Builder(int age) {
             this.age = age;
         }
+        public Builder Record(AnimalRecord record) {
+            this.record = record;
+            return this;
+        }
+        
        public Builder id(Long value) {
             id = value;
             return this;
@@ -81,7 +89,7 @@ private static final long serialVersionUID = 1L;
             return this;
         }
 
-        public Builder adopted(boolean adopt) {
+        public Builder isAdopted(boolean adopt) {
             this.adopted = adopt;
             return this;
         }
@@ -102,9 +110,10 @@ private static final long serialVersionUID = 1L;
             color = animal.getColor();
             id = animal.getId();
             age = animal.getAge();
-            adopted = animal.adopted;
+            adopted = animal.getAdopted();
             habitat = animal.getHabitat();
             status = animal.getStatus();
+            record = animal.getRecord();
             return this;
 
         }
@@ -129,6 +138,16 @@ private static final long serialVersionUID = 1L;
     /**
      * @return the name
      */
+    
+    public boolean getAdopted()
+    {
+        return adopted;   
+    }
+    public AnimalRecord getRecord()
+    {
+        return record;
+    }
+    
     public String getName() {
         return name;
     }
@@ -191,6 +210,11 @@ private static final long serialVersionUID = 1L;
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" + "id=" + id + '}';
     }
 
 }

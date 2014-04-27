@@ -38,9 +38,9 @@ public class EmployeeRepositoryTest {
      public void createEmployee() {
          repo = ctx.getBean(EmployeeRepository.class);
          
-         Animal ani = new Animal.Builder(33).Name("sunji").Species("elephant").build();
-         List<Animal> animal = new ArrayList<>();
-         animal.add(ani);
+//         Animal ani = new Animal.Builder(33).Name("sunji").Species("elephant").build();
+//         List<Animal> animal = new ArrayList<>();
+//         animal.add(ani);
          
          Employee emp = new Employee.Builder("1331").EmpName("Azola").EmpSurname("Nxanti").build();
          

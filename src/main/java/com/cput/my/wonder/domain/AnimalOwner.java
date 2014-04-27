@@ -8,6 +8,8 @@ package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,9 +33,12 @@ public class AnimalOwner implements Serializable{
     private String surname;
     private int age;
     
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "OwnerID")     
     private List<Animal> animal;
+    
+    @Embedded
+    private Address address;
     
     private AnimalOwner()
     {        
@@ -46,19 +51,26 @@ public class AnimalOwner implements Serializable{
         this.name = build.name;
         this.animal = build.animal;
         this.surname = build.surname;
+        this.address = build.address;
     }
     public static class Builder{
         private Long OwnerID;
         private String name;
         public String surname;
         private int age;        
-          
+        private Address address;
         private List<Animal> animal;        
                 
         public Builder(String name)
         {
             this.name = name;
         }        
+        public Builder Address(Address addr)
+        {
+            this.address = addr;
+            return this;
+        }
+        
         public Builder id(Long value) {
             OwnerID = value;
             return this;
@@ -79,11 +91,12 @@ public class AnimalOwner implements Serializable{
 
          public Builder animalOwner(AnimalOwner owner)
        {
-        this.OwnerID = owner.OwnerID;
-        this.age = owner.age;
-        this.name = owner.name;
-        this.animal = owner.animal;
-        this.surname = owner.surname;
+        this.OwnerID = owner.getOwnerID();
+        this.age = owner.getAge();
+        this.name = owner.getName();
+        this.animal = owner.getAnimal();
+        this.surname = owner.getSurname();
+        this.address = owner.getAddress();
         return this;
        }
         public AnimalOwner build()
@@ -93,6 +106,11 @@ public class AnimalOwner implements Serializable{
         
     }
 
+    public Address getAddress()
+    {
+        return address;
+    }
+    
     public Long getOwnerID() {
         return OwnerID;
     }

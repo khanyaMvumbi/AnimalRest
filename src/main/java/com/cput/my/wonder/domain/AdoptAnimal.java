@@ -9,6 +9,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class AdoptAnimal implements Serializable {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long id;
        
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "adoptionID")
     private List<Animal> animal;
 

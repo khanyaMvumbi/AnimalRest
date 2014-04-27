@@ -33,8 +33,6 @@ public class AnimalOwnerRepositoryTest {
     private static ApplicationContext ctx;
     private Long id;
     private AnimalOwnerRepository repo;
-    private AnimalRepository animalRepo;
-    private AnimalStatusRepository statusRepo;
     public AnimalOwnerRepositoryTest() {
     }
 
@@ -43,24 +41,18 @@ public class AnimalOwnerRepositoryTest {
     //
     @Test
     public void createAnimalOwner() {
+     List<Animal>animals = new ArrayList<>();
+     AnimalStatus statusObj = new AnimalStatus.Builder("Sick").date("12/04/2014").isActive(true).build();
      
-//     statusRepo = ctx.getBean(AnimalStatusRepository.class);
-//     
-//     List<Animal>animals = new ArrayList<>();
-//     AnimalStatus statusObj = new AnimalStatus.Builder("Sick").date("12/04/2014").isActive(true).build();
-//     
-//     List<AnimalStatus> status = new ArrayList<>();
-//     status.add(statusObj);
-//     statusRepo.save(statusObj);
-//     
-//     Animal animal = new Animal.Builder(4).Name("katalina").Species("Cat").adopted(false).Color("black").status(status).build();
-//     animals.add(animal);     
-//     animalRepo = ctx.getBean(AnimalRepository.class);
-//    
-//     
-//     animal = new Animal.Builder(4).Name("Faku").Species("Dog").adopted(false).Color("black").status(status).build();
-//     animals.add(animal);
-//      animalRepo.save(animal);
+     List<AnimalStatus> status = new ArrayList<>();
+     status.add(statusObj);
+      
+     Animal animal = new Animal.Builder(4).Name("katalina").Species("Cat").isAdopted(false).Color("black").status(status).build();
+     animals.add(animal);  
+    
+     
+     animal = new Animal.Builder(4).Name("Faku").Species("Dog").isAdopted(false).Color("black").status(status).build();
+     animals.add(animal);
      repo = ctx.getBean(AnimalOwnerRepository.class);
      AnimalOwner owner = new AnimalOwner.Builder("Jesus").Age(43).Surname("Christ").build();
      
@@ -112,7 +104,9 @@ public class AnimalOwnerRepositoryTest {
     }
     
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(AnimalOwnerRepository.class);
+        repo.deleteAll();
     
     }
 

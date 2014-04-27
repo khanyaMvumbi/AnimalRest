@@ -105,7 +105,8 @@ public class AnimalHealthRepositoryTest {
 
     @AfterClass
     public void tearDownClass() throws Exception {
-        //repo.deleteAll();
+        repo = ctx.getBean(AnimalHealthRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

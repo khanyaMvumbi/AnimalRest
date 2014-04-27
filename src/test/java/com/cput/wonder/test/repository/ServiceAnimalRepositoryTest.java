@@ -42,11 +42,11 @@ public class ServiceAnimalRepositoryTest {
     public void createServiceAnimal() {
         repo = ctx.getBean(ServiceAnimalRepository.class);
         
-//        Animal ani = new Animal.Builder(4).Name("nonjana").Species("Dog").build();
-//         List<Animal> animal = new ArrayList<>();
-//         animal.add(ani);
-//        
-        ServiceAnimal service = new ServiceAnimal.Builder("12/05/2014").build();
+        Animal ani = new Animal.Builder(4).Name("nonjana").Species("Dog").build();
+         List<Animal> animal = new ArrayList<>();
+         animal.add(ani);
+       
+        ServiceAnimal service = new ServiceAnimal.Builder("12/05/2014").animal(animal).build();
         repo.save(service);
         id = service.getID();
         
@@ -98,7 +98,10 @@ public class ServiceAnimalRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        
+        repo = ctx.getBean(ServiceAnimalRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

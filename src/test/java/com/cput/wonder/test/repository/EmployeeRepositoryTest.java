@@ -7,11 +7,8 @@
 package com.cput.wonder.test.repository;
 
 import com.cput.my.wonder.app.config.ConnectionConfig;
-import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.Employee;
 import com.cput.my.wonder.repository.EmployeeRepository;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -92,7 +89,9 @@ public class EmployeeRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(EmployeeRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

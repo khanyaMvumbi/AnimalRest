@@ -95,7 +95,9 @@ public class AnimalRepositoryTest {
     }
     
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(AnimalRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

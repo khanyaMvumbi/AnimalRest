@@ -9,13 +9,10 @@ package com.cput.wonder.test.repository;
 import com.cput.my.wonder.app.config.ConnectionConfig;
 import com.cput.my.wonder.domain.FeedAnimal;
 import com.cput.my.wonder.domain.Food;
-import com.cput.my.wonder.domain.Supplier;
 import com.cput.my.wonder.repository.FeedAnimalRepository;
-import com.cput.my.wonder.repository.SupplierRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
-import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -91,7 +88,10 @@ public class FeedAnimalRepositoryTest {
         ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
     }
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        
+        repo = ctx.getBean(FeedAnimalRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

@@ -88,7 +88,9 @@ public class InventoryRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public  void tearDownClass() throws Exception {
+           repo = ctx.getBean(InventoryRepository.class);
+        repo.deleteAll(); 
     }
 
     @BeforeMethod

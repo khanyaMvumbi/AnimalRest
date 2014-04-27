@@ -8,10 +8,7 @@ package com.cput.wonder.test.repository;
 import com.cput.my.wonder.app.config.ConnectionConfig;
 import com.cput.my.wonder.domain.Habitat;
 import com.cput.my.wonder.domain.ServiceHabitat;
-import com.cput.my.wonder.domain.Supplier;
-import com.cput.my.wonder.repository.HabitatRepository;
 import com.cput.my.wonder.repository.ServiceHabitatRepository;
-import com.cput.my.wonder.repository.SupplierRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -99,7 +96,9 @@ public class ServiceHabitatRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(ServiceHabitatRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

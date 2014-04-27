@@ -87,7 +87,10 @@ public class TransportAnimalRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        
+        repo = ctx.getBean(TransportAnimalRepository.class);
+        repo.deleteAll();
         
     }
 

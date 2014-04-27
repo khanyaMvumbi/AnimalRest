@@ -98,7 +98,10 @@ public class CustomerRepositoryTest {
     }  
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        
+        repo = ctx.getBean(CustomerRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

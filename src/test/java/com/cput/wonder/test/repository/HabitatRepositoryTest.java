@@ -90,7 +90,9 @@ public class HabitatRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(HabitatRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

@@ -87,7 +87,9 @@ public class EmployeePositionsRepositoryTest {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(EmployeePositionsRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod

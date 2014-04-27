@@ -43,7 +43,7 @@ public class AnimalHealthRepositoryTest {
         Animal ani = new Animal.Builder(33).Name("sunji").Species("elephant").build();
          List<Animal> animal = new ArrayList<>();
          animal.add(ani);
-         AnimalHealth health = new AnimalHealth.Builder("Dog Cancer").Description("If animal doesnt take treatment, this animal will die suddenly").animals(animal).build();
+         AnimalHealth health = new AnimalHealth.Builder("Dog Cancer").animals(animal).Description("If animal doesnt take treatment, this animal will die suddenly").build();
          
          repo.save(health);
          id = health.getHealthID();

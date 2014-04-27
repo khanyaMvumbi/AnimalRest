@@ -41,8 +41,7 @@ public class TransportAnimalRepositoryTest {
         TransportAnimal trans = new TransportAnimal.Builder("7777").location("Port Elizabeth").Date("12/11/2014").build();
         
         repo.save(trans);
-        id = trans.getId();
-        
+        id = trans.getId();        
         Assert.assertEquals(trans.getTransportNumber(),"7777");            
     }
     

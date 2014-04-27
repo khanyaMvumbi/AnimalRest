@@ -8,6 +8,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class ServiceAnimal implements Serializable {
     private Long ID;
     private String date;
 
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "serviceID")
     private List<Animal> animal;
 
@@ -46,7 +47,6 @@ public class ServiceAnimal implements Serializable {
         private Long ID;
         private String date;
         private List<Animal> animal;
-
                
         public Builder ID(Long ID) {
           this.ID = ID;
@@ -54,10 +54,8 @@ public class ServiceAnimal implements Serializable {
         }
 
         public Builder(String date) {
-            this.date = date;
-           
+            this.date = date;           
         }
-
         public Builder animal(List<Animal> animal) {
             this.animal = animal;
             return this;

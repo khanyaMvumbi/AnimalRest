@@ -25,6 +25,10 @@ public class Food implements Serializable{
         name = build.name;
         description = build.description;
     }
+    private Food()
+    {
+        
+    }
     
     public static class Builder{
         

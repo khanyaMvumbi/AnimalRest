@@ -16,9 +16,9 @@ import org.testng.annotations.BeforeMethod;
  *
  * @author Khanya
  */
-public class Habitat {
+public class InventoryRepositoryTest {
     
-    public Habitat() {
+    public InventoryRepositoryTest() {
     }
 
     // TODO add test methods here.

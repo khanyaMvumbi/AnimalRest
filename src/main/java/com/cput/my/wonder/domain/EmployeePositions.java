@@ -36,7 +36,6 @@ public class EmployeePositions implements Serializable{
     @OneToMany
     @JoinColumn(name = "positionID")
     private List<Employee> employee;
-
        
     private EmployeePositions()
     {        

@@ -7,8 +7,11 @@
 package com.cput.wonder.test.repository;
 
 import com.cput.my.wonder.app.config.ConnectionConfig;
+import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.Employee;
 import com.cput.my.wonder.repository.EmployeeRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -35,9 +38,9 @@ public class EmployeeRepositoryTest {
      public void createEmployee() {
          repo = ctx.getBean(EmployeeRepository.class);
          
-//         Animal ani = new Animal.Builder(33).Name("sunji").Species("elephant").build();
-//         List<Animal> animal = new ArrayList<>();
-//         animal.add(ani);
+         Animal ani = new Animal.Builder(33).Name("sunji").Species("elephant").build();
+         List<Animal> animal = new ArrayList<>();
+         animal.add(ani);
          
          Employee emp = new Employee.Builder("1331").EmpName("Azola").EmpSurname("Nxanti").build();
          

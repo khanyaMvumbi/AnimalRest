@@ -33,6 +33,10 @@ public class Supplier implements Serializable {
     }
 
     private Supplier(Builder build) {
+        companyName = build.companyName;
+        supplyingType = build.supplyingType;
+        name = build.name;
+        id = build.id;
 
     }
 

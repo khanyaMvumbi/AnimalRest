@@ -6,10 +6,8 @@
 
 package com.cput.my.wonder.repository;
 
-import com.cput.my.wonder.domain.Animal;
 import com.cput.my.wonder.domain.EmployeePositions;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  *

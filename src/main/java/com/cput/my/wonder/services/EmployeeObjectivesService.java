@@ -4,17 +4,13 @@
  * and open the template in the editor.
  */
 
-package com.cput.my.wonder.repository;
-
-import com.cput.my.wonder.domain.Animal;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.cput.my.wonder.services;
 
 /**
  *
  * @author Khanya
  */
-
-//@Repository
-public interface AnimalRepository extends JpaRepository<Animal, Long>{
+public interface EmployeeObjectivesService {
     
+   
 }

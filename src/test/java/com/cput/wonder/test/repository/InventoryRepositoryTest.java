@@ -39,7 +39,7 @@ public class InventoryRepositoryTest {
     public void createInventory() {
         repo = ctx.getBean(InventoryRepository.class);
         
-        Inventory inv = new Inventory.Builder(5).date("23/06/2014").build();
+        Inventory inv = new Inventory.Builder().quantity(5).date("23/06/2014").build();
         repo.save(inv);
         id = inv.getId();
         
@@ -61,7 +61,7 @@ public class InventoryRepositoryTest {
         repo = ctx.getBean(InventoryRepository.class);
         Inventory inv = repo.findOne(id);
         
-        Inventory newInv = new Inventory.Builder(5).inventoryFood(inv).date("22/07/2014").build();
+        Inventory newInv = new Inventory.Builder().inventoryFood(inv).date("22/07/2014").build();
         repo.save(newInv);
         
         Inventory updatedInv = repo.findOne(id);

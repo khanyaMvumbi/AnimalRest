@@ -39,9 +39,7 @@ public class AnimalHealth implements Serializable{
     @JoinColumn(name = "healthID")
     private List<Treatment> treatment;
 
-    @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn(name = "healthID")
-    private List<MedicalHistory> history;
+    
 
     private AnimalHealth() {
     }
@@ -52,8 +50,7 @@ public class AnimalHealth implements Serializable{
         this.description = builder.description;
         this.healthID = builder.healthID;
         this.treatment = builder.treatment;
-        this.history = builder.history;
-
+        
     }
 
     public static class Builder {
@@ -63,8 +60,7 @@ public class AnimalHealth implements Serializable{
         private List<Animal> animal;
         private List<Treatment> treatment;
         private Long healthID;
-        private List<MedicalHistory> history;
-
+       
         public Builder(String condition) {
             this.condition = condition;
         }
@@ -88,11 +84,6 @@ public class AnimalHealth implements Serializable{
             return this;
         }
 
-        public Builder history(List<MedicalHistory> history) {
-            this.history = history;
-            return this;
-
-        }
 
         public Builder animalHealth(AnimalHealth health) {
             animal = health.getAnimal();
@@ -100,7 +91,6 @@ public class AnimalHealth implements Serializable{
             condition = health.getCondition();
             healthID = health.getHealthID();
             description = health.getDescription();
-            history = health.getHistory();
             return this;
         }
 
@@ -124,10 +114,6 @@ public class AnimalHealth implements Serializable{
 
     public List<Animal> getAnimal() {
         return animal;
-    }
-
-    public List<MedicalHistory> getHistory() {
-        return history;
     }
 
     public List<Treatment> getTreatment() {

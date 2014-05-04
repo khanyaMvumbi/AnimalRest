@@ -7,10 +7,14 @@
 package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,25 +28,27 @@ public class MedicalHistory implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long medID;
     private String description;
-    private String history;
     private String date;
-
+    
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "HistoryID")
+   private List<AnimalHealth> infection;
+    
     private MedicalHistory() {
     }
 
     private MedicalHistory(Builder build) {
         this.medID = build.medID;
         this.description = build.description;
-        this.history = build.history;
-        
+        this.infection = build.infection;
     }
     
 public static class Builder{
+    private List<AnimalHealth> infection;
     private Long medID;
     private String description;
-    private String history;
-
-        public Builder Id(Long id)
+   
+    public Builder Id(Long id)
         {
             this.medID = id;
             return this;
@@ -52,16 +58,15 @@ public static class Builder{
             return this;
         }
 
-        public Builder history(String history) {
-            this.history = history;
+        public Builder infection(List<AnimalHealth> infection) {
+            this.infection = infection;
             return this;
         }
-        
         public Builder medicalHistory(MedicalHistory hist)
         {
              description = hist.getDescription();
-             history = hist.getHistory();
              medID = hist.getMedID();
+             infection = hist.getInfection();
              return this;
         }
         public MedicalHistory build()
@@ -71,6 +76,7 @@ public static class Builder{
     
 }
     
+
     
     public Long getMedID() {
         return medID;
@@ -80,8 +86,8 @@ public static class Builder{
         return description;
     }
 
-    public String getHistory() {
-        return history;
+    public List<AnimalHealth> getInfection() {
+        return infection;
     }
 
     @Override

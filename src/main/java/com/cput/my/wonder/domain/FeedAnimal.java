@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -29,10 +30,14 @@ public class FeedAnimal implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     private boolean feed;
+//    private int quantity;
 
     @Embedded
     private Food food;
-
+            
+    @OneToOne  (cascade = CascadeType.ALL)
+    private Inventory inventory;
+    
     @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "feedID")
     private List<Animal> animal;
@@ -41,6 +46,8 @@ public class FeedAnimal implements Serializable{
         this.Id = build.Id;
         this.feed = build.feed;
         this.food = build.food;
+//        quantity = build.quantity;
+        inventory = build.inventory;
     }
 
     private FeedAnimal()
@@ -53,7 +60,9 @@ public class FeedAnimal implements Serializable{
         private boolean feed;
         private Food food;
         private List<Animal> animal;
-
+//        private int quantity;
+        private Inventory inventory;
+        
         public Builder(boolean feed) {
             this.feed = feed;
         }
@@ -61,6 +70,11 @@ public class FeedAnimal implements Serializable{
             Id = value;
             return this;
         }
+        public Builder Inventory(Inventory quantity) {
+            this.inventory = quantity;
+            return this;
+        }      
+         
          public Builder animalList(List<Animal> value) {
             animal = value;
             return this;
@@ -75,6 +89,8 @@ public class FeedAnimal implements Serializable{
             Id = feeds.getId();
             feed = feeds.isFeed();
             animal = feeds.getAnimals();
+//            quantity = feeds.getQuantity();
+            inventory = feeds.getInventory();
             return this;
         }
 
@@ -84,11 +100,21 @@ public class FeedAnimal implements Serializable{
 
     }
     
+    
+    public Inventory getInventory()
+    {
+        return inventory;
+    }
     public List<Animal> getAnimals()
     {
         return animal;
     }
 
+//    public int getQuantity()
+//    {
+//        return quantity;        
+//    }
+    
     public Long getId() {
         return Id;
     }

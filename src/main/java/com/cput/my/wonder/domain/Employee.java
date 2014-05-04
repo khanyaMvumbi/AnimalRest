@@ -8,6 +8,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ private static final long serialVersionUID = 1L;
 
     private String empName;
     private String empSurname;
+    
+    @Column (unique = true)
     private String empNumber;
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "empID")
@@ -50,6 +53,10 @@ private static final long serialVersionUID = 1L;
     @JoinColumn(name = "empID")
     private List<AdoptAnimal> adopt;
     
+    @OneToMany
+    @JoinColumn(name = "empID")
+    private List<Customer> cust;
+    
     @Embedded
     private Address address;
 
@@ -58,6 +65,7 @@ private static final long serialVersionUID = 1L;
         
     }
     private Employee(Builder build) {
+       
         this.empID = build.empID;
         this.empName = build.empName;
         this.empSurname = build.empSurname;
@@ -67,6 +75,7 @@ private static final long serialVersionUID = 1L;
         this.serviceHabitat = build.serviceHabitat;
         this.adopt = build.adopt;
         this.address = build.address;
+        this.cust = build.cust;    
     }
 
     public static class Builder {
@@ -76,6 +85,7 @@ private static final long serialVersionUID = 1L;
         private String empName;
         private String empSurname;
        private Address address;
+       private List<Customer> cust;
         private List<FeedAnimal> feed;
         private List<TransportAnimal> transportAnimal;
         private List<AdoptAnimal> adopt;
@@ -84,6 +94,11 @@ private static final long serialVersionUID = 1L;
 
         public Builder(String empNumber) {
             this.empNumber = empNumber;
+        }
+        
+         public Builder ListOfCustomers(List <Customer> cust) {
+            this.cust = cust;
+            return this;
         }
         
         public Builder Address(Address addr)
@@ -143,6 +158,7 @@ private static final long serialVersionUID = 1L;
             serviceHabitat = emp.getServiceHabitat();
             feed = emp.getFeedAnimal();
             address = emp.getAddress();
+            cust = emp.getCustomers();
             return this;
         }
 
@@ -151,7 +167,10 @@ private static final long serialVersionUID = 1L;
         }
     }
     
-    
+    public List<Customer> getCustomers()
+    {
+        return cust;
+    }
     public Address getAddress()
     {
         return address;

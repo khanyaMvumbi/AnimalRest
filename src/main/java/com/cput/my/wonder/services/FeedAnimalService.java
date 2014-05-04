@@ -4,17 +4,18 @@
  * and open the template in the editor.
  */
 
-package com.cput.my.wonder.repository;
+package com.cput.my.wonder.services;
 
 import com.cput.my.wonder.domain.Animal;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.cput.my.wonder.domain.FeedAnimal;
+import java.util.List;
 
 /**
  *
  * @author Khanya
  */
-
-//@Repository
-public interface AnimalRepository extends JpaRepository<Animal, Long>{
+public interface FeedAnimalService {
     
-}
+    public List <FeedAnimal> getFoodOnStock();
+    public void FeedAnimal(List<Animal> animal); 
+    }

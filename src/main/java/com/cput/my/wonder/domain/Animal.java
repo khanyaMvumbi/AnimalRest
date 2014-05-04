@@ -44,6 +44,10 @@ private static final long serialVersionUID = 1L;
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "animalID")
     private List<AnimalStatus> status;
+    
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "animalID")
+    private List<MedicalHistory> history;
      
     private Animal()
     {
@@ -61,10 +65,16 @@ private static final long serialVersionUID = 1L;
         private Habitat habitat;
         private List<AnimalStatus> status;
         private AnimalRecord record;
+        private List<MedicalHistory> history;
         
         public Builder(int age) {
             this.age = age;
         }
+        public Builder History(List <MedicalHistory> hist) {
+            this.history = hist;
+            return this;
+        }
+        
         public Builder Record(AnimalRecord record) {
             this.record = record;
             return this;
@@ -114,6 +124,7 @@ private static final long serialVersionUID = 1L;
             habitat = animal.getHabitat();
             status = animal.getStatus();
             record = animal.getRecord();
+            history = animal.getHistory();
             return this;
 
         }
@@ -133,11 +144,17 @@ private static final long serialVersionUID = 1L;
         this.status = build.status;
         this.adopted = build.adopted;
         this.habitat = build.habitat;
+        this.history = build.history;
     }
 
     /**
      * @return the name
      */
+    
+    public List <MedicalHistory> getHistory()
+    {
+        return history;
+    }
     
     public boolean getAdopted()
     {

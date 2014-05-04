@@ -10,6 +10,7 @@ package com.cput.my.wonder.app.config;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author boniface
  */
 @Configuration
+@ComponentScan("com.cput.my.wonder")
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.cput.my.wonder")
 public class ConnectionConfig {

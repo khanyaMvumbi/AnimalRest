@@ -42,8 +42,13 @@ public class Inventory implements Serializable{
         private int quantityStock;
         private String date;
 
-        public Builder(int stock) {
-            this.quantityStock = stock;            
+        public Builder() {
+             
+        }
+        
+        public Builder quantity(int stock) {
+            this.quantityStock = stock;  
+            return this;
         }
         
         public Builder date(String date)

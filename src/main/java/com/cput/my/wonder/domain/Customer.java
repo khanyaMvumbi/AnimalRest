@@ -7,7 +7,7 @@
 package com.cput.my.wonder.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -45,7 +44,7 @@ private AdoptAnimal adopt;
 private Address address;
 
 
-    public Customer() {
+    private Customer() {
     }
 
 
@@ -91,12 +90,7 @@ public static class Builder{
      public Builder CustSurname(String custSurname) {
             this.custSurname = custSurname;
             return this;
-        }
-      public Builder id(Long value) {
-            Id = value;
-            return this;
-        }
-       
+        }       
         public Builder Adopt(AdoptAnimal adopt) {
             this.adopt = adopt;
             return this;
@@ -146,8 +140,8 @@ public Address getAddress()
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + (this.custName != null ? this.custName.hashCode() : 0);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.Id);
         return hash;
     }
 
@@ -160,7 +154,7 @@ public Address getAddress()
             return false;
         }
         final Customer other = (Customer) obj;
-        if ((this.custName == null) ? (other.custName != null) : !this.custName.equals(other.custName)) {
+        if (!Objects.equals(this.Id, other.Id)) {
             return false;
         }
         return true;
@@ -168,7 +162,9 @@ public Address getAddress()
 
     @Override
     public String toString() {
-        return "Customer{" + "custNumber=" + custNumber + '}';
+        return "Customer{" + "Id=" + Id + '}';
     }
+
+    
     
 }

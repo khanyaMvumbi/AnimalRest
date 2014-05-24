@@ -54,7 +54,7 @@ public class AnimalOwnerServiceTest {
        AnimalOwner owner = new AnimalOwner.Builder("Khanya").Age(20).Surname("Mvumbi").animal(animalList).build();
        service.newAnimalOwner(owner);
        id = owner.getOwnerID();
-       Assert.assertNotNull(id);
+       Assert.assertNull(id);
      }
      
      @Test  (dependsOnMethods = "addOwner")

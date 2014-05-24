@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,11 +40,8 @@ public class AnimalHealth implements Serializable{
     @JoinColumn(name = "healthID")
     private List<Treatment> treatment;
 
-    
-
     private AnimalHealth() {
     }
-
     private AnimalHealth(Builder builder) {
         this.animal = builder.animal;
         this.condition = builder.condition;

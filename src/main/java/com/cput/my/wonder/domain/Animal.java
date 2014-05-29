@@ -42,11 +42,11 @@ private static final long serialVersionUID = 1L;
     @Embedded
     private AnimalRecord record;
     // One to one 
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "animalID")
     private List<AnimalStatus> status;
     
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "animalID")
     private List<MedicalHistory> history;
      
@@ -121,7 +121,7 @@ private static final long serialVersionUID = 1L;
             color = animal.getColor();
             id = animal.getId();
             age = animal.getAge();
-            adopted = animal.getAdopted();
+            adopted = animal.isAdopted();
             habitat = animal.getHabitat();
             status = animal.getStatus();
             record = animal.getRecord();
@@ -157,11 +157,7 @@ private static final long serialVersionUID = 1L;
         return history;
     }
     
-    public boolean getAdopted()
-    {
-        return adopted;   
-    }
-    public AnimalRecord getRecord()
+     public AnimalRecord getRecord()
     {
         return record;
     }
@@ -232,7 +228,8 @@ private static final long serialVersionUID = 1L;
 
     @Override
     public String toString() {
-        return "Animal{" + "id=" + id + '}';
+        return "Animal{" + "id=" + id + ", name=" + name + ", age=" + age + ", species=" + species + ", color=" + color + ", adopted=" + adopted + ", habitat=" + habitat + ", record=" + record + ", status=" + status + ", history=" + history + '}';
     }
 
+   
 }

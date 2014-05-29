@@ -22,28 +22,50 @@ public class AnimalServicesImpl implements AnimalService{
 
     @Autowired
     private AnimalRepository animalRepo;
-        
+   
     @Override
-    public List<Animal> getAnimals() {
+    public Animal find(Long id) {
+        return animalRepo.findOne(id);}
+
+    @Override
+    public Animal persist(Animal entity) {
+        return animalRepo.save(entity);   }
+
+    @Override
+    public Animal merge(Animal entity) {
+        
+        if(entity.getId() != null)
+        {
+            return animalRepo.save(entity);  
+        }
+        else
+            return null;
+    }
+
+    @Override
+    public void remove(Animal entity) {
+       if(animalRepo.exists(entity.getId())) 
+           animalRepo.delete(entity);
+       else
+           System.out.println("Id doesn't exist");
+    }
+
+    @Override
+    public List<Animal> findAll() {
         return animalRepo.findAll();
     }
 
     @Override
-    public void addNewAnimal(Animal animal) {     
-        animalRepo.save(animal);                
-    }
-    @Override
-    public Animal searchAnimal(Long id) {
-     return animalRepo.findOne(id);
-    }
+    public Animal getAnimalByName(String name) {
+        List<Animal> animals = findAll();
+        Animal foundAnimal = null;
+        
+        for (Animal animal : animals ){
+            if(animal.getName().equalsIgnoreCase(name)) {
+                foundAnimal = animal;            
+            }
+        }
+        return foundAnimal;
 
-    @Override
-    public void deleteAnimal(Long id) {
-       if(animalRepo.exists(id)) 
-           animalRepo.delete(id);
-       else
-           System.out.println("Id doesn't exist");
-       
     }
-
 }

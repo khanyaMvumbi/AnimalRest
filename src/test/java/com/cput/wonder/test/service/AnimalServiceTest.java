@@ -40,15 +40,15 @@ public class AnimalServiceTest {
     public void getAnimals() {
         service = ctx.getBean(AnimalService.class);
          
-        Assert.assertEquals(service.getAnimals().size(),0 );
+        Assert.assertEquals(service.findAll().size(),0 );
     }
     
     @Test  (dependsOnMethods = "getAnimals")
     public void addAnimal() {
         service = ctx.getBean(AnimalService.class);        
         Animal animal = new Animal.Builder(3).Name("papa").Species("DOg").Color("white").isAdopted(false).build();
-        service.addNewAnimal(animal);        
-        Assert.assertEquals(service.getAnimals().size(),1 );
+        service.persist(animal);        
+        Assert.assertEquals(service.findAll().size(),1 );
         
     }
     
@@ -57,8 +57,8 @@ public class AnimalServiceTest {
         service = ctx.getBean(AnimalService.class);
         
         Animal animal = new Animal.Builder(7).Name("dada").Species("Dog").Color("black").isAdopted(false).build();
-        service.addNewAnimal(animal); 
-        Animal animal2 = service.searchAnimal(service.getAnimals().get(0).getId());
+        service.persist(animal); 
+        Animal animal2 = service.find(service.findAll().get(0).getId());
         
         Assert.assertEquals(animal2.getAge(), 3  );
     }
@@ -67,9 +67,9 @@ public class AnimalServiceTest {
     public void deleteAnimal() {
         service = ctx.getBean(AnimalService.class);
         
-        service.deleteAnimal(service.getAnimals().get(0).getId());
+        service.remove(service.findAll().get(0));
         
-        Assert.assertEquals(service.getAnimals().size(), 1 );
+        Assert.assertEquals(service.findAll().size(), 1 );
     }
 
     @BeforeClass

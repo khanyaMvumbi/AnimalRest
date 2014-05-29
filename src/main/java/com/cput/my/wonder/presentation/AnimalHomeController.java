@@ -24,18 +24,23 @@ public class AnimalHomeController {
     @Autowired
     private AnimalService animalService;
     
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String getIndex(){
+        return "index";
+    }
+    
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String getHome()
     {        
         return "home";
     }
     
-    @RequestMapping(value = "home/animal", method = RequestMethod.GET)
+    @RequestMapping(value = "/animal", method = RequestMethod.GET)
     @ResponseBody
     public String getAnimal()
     {
         Animal animal = new Animal.Builder(3).Color("black").Name("allen").Species("Dog").build();
-        animalService.addNewAnimal(animal);
-        return animalService.getAnimals().toString();         
+        animalService.persist(animal);
+        return animalService.findAll().toString();         
     }
 }

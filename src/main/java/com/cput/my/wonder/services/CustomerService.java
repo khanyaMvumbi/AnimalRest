@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Khanya
  */
-public interface CustomerService {
+public interface CustomerService{
     
    public List<Customer> getCustomers();
    public void adoptAnimal(List<Animal> animal, Customer cust, Employee employee);

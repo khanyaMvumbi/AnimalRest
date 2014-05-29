@@ -13,11 +13,8 @@ import java.util.List;
  *
  * @author Khanya
  */
-public interface AnimalService {
+public interface AnimalService extends Services<Animal, Long>{
     
-    public List <Animal> getAnimals();
-    public void addNewAnimal(Animal animal);
-    public Animal searchAnimal(Long id);
-    public void deleteAnimal(Long id);   
-          
+    public Animal getAnimalByName(String name);
+    
     }
